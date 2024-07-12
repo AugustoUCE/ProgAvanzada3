@@ -212,6 +212,14 @@ public sealed interface Lista<T> permits Cons, Empty { //solo será capaz de her
             return ret.o1();
         }
 
+    default Lista<T> filter(Predicate<T> predicate){
+        return this.isEmpty()
+                ? Lista.Empty
+                : predicate.test(this.head())
+                ? Lista.listOf(this.head(), this.tail().filter(predicate))
+                : this.tail().filter(predicate);
+    }
+
 //    public static void  main(String[]arg){
 //        List<Integer> ls = List.of(1,2,3,4,5,6);
 //        List<String> ret = new ArrayList<>();
